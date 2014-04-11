@@ -1,7 +1,34 @@
 ﻿<?xml version='1.0' encoding='utf-8'?>
-<SettingsFile xmlns="uri:settings" CurrentProfile="(Default)">
-  <Profiles>
-    <Profile Name="(Default)" />
-  </Profiles>
-  <Settings />
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="Metrobit.Shell.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="WindowPlacement" Type="Metrobit.Shell.Utils.WINDOWPLACEMENT" Scope="User">
+      <Value Profile="(Default)">&amp;lt;?xml version="1.0" encoding="utf-16"?&amp;gt;
+&amp;lt;WINDOWPLACEMENT xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&amp;gt;
+  &amp;lt;length&amp;gt;0&amp;lt;/length&amp;gt;
+  &amp;lt;flags&amp;gt;0&amp;lt;/flags&amp;gt;
+  &amp;lt;showCmd&amp;gt;0&amp;lt;/showCmd&amp;gt;
+  &amp;lt;minPosition&amp;gt;
+    &amp;lt;X&amp;gt;0&amp;lt;/X&amp;gt;
+    &amp;lt;Y&amp;gt;0&amp;lt;/Y&amp;gt;
+  &amp;lt;/minPosition&amp;gt;
+  &amp;lt;maxPosition&amp;gt;
+    &amp;lt;X&amp;gt;0&amp;lt;/X&amp;gt;
+    &amp;lt;Y&amp;gt;0&amp;lt;/Y&amp;gt;
+  &amp;lt;/maxPosition&amp;gt;
+  &amp;lt;normalPosition&amp;gt;
+    &amp;lt;Left&amp;gt;0&amp;lt;/Left&amp;gt;
+    &amp;lt;Top&amp;gt;0&amp;lt;/Top&amp;gt;
+    &amp;lt;Right&amp;gt;0&amp;lt;/Right&amp;gt;
+    &amp;lt;Bottom&amp;gt;0&amp;lt;/Bottom&amp;gt;
+  &amp;lt;/normalPosition&amp;gt;
+&amp;lt;/WINDOWPLACEMENT&amp;gt;</Value>
+    </Setting>
+    <Setting Name="ThemeSource" Type="System.Uri" Scope="User">
+      <Value Profile="(Default)">/FirstFloor.ModernUI;component/Assets/ModernUI.Dark.xaml</Value>
+    </Setting>
+    <Setting Name="AccentColor" Type="System.Windows.Media.Color" Scope="User">
+      <Value Profile="(Default)">#FF647687</Value>
+    </Setting>
+  </Settings>
 </SettingsFile>

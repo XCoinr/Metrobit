@@ -12,8 +12,11 @@
   See http://www.galasoft.ch/mvvm
 */
 
-using GalaSoftstle.MvvmLight;
-using GalaSoft.MvvmLight.Ioc;
+using Castle.Windsor;
+using Castle.Windsor.Installer;
+using GalaSoft.MvvmLight;
+using Metrobit.Shell.Content;
+using Metrobit.Shell.Utils;
 using Microsoft.Practices.ServiceLocation;
 
 namespace Metrobit.Shell.ViewModel
@@ -24,25 +27,35 @@ namespace Metrobit.Shell.ViewModel
     /// </summary>
     public class ViewModelLocator
     {
+        private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
         /// <summary>
         /// Initializes a new instance of the ViewModelLocator class.
         /// </summary>
         public ViewModelLocator()
         {
-            ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
+            if (ViewModelBase.IsInDesignModeStatic)
+            {
+                // Create design time view services and models
+                //SimpleIoc.Default.Register<IDataService, DesignDataService>();
+            }
+            else
+            {
+                // Create run time view services and models
+                var container = new WindsorContainer();
+                container.Install(FromAssembly.This());
 
-            ////if (ViewModelBase.IsInDesignModeStatic)
-            ////{
-            ////    // Create design time view services and models
-            ////    SimpleIoc.Default.Register<IDataService, DesignDataService>();
-            ////}
-            ////else
-            ////{
-            ////    // Create run time view services and models
-            ////    SimpleIoc.Default.Register<IDataService, DataService>();
-            ////}
+                ServiceLocator.SetLocatorProvider(() => new WindsorServiceLocator(container));
+            }
 
-            SimpleIoc.Default.Register<MainViewModel>();
+
+            // Pre activate
+            var temp = Logging;
+
+            log.Debug("Test Debug");
+            log.Info("Test Info");
+            log.Warn("Test warn");
+            log.Error("Test Error");
         }
 
         public MainViewModel Main
@@ -51,6 +64,27 @@ namespace Metrobit.Shell.ViewModel
             {
                 return ServiceLocator.Current.GetInstance<MainViewModel>();
             }
+        }
+
+        public SettingsAppearanceViewModel SettingsAppearance
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<SettingsAppearanceViewModel>();
+            }
+        }
+
+        public LoggingViewModel Logging
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<LoggingViewModel>();
+            }
+        }
+
+        public AboutViewModel About
+        {
+            get { return ServiceLocator.Current.GetInstance<AboutViewModel>(); }
         }
         
         public static void Cleanup()

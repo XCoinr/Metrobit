@@ -1,0 +1,48 @@
+﻿<UserControl x:Class="Metrobit.Shell.Controls.LoggingControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:core="clr-namespace:log4net.Core;assembly=log4net"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" PreviewMouseWheel="ScrollViewer_PreviewMouseWheel">
+            <DataGrid ItemsSource="{Binding LoggingEvents}" AutoGenerateColumns="False" IsReadOnly="True">
+                <DataGrid.RowStyle>
+                    <Style TargetType="DataGridRow">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Level}" Value="{x:Static core:Level.Debug}">
+                                <Setter Property="Background" Value="Transparent"></Setter>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Level}" Value="{x:Static core:Level.Info}">
+                                <Setter Property="Background" Value="Transparent"></Setter>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Level}" Value="{x:Static core:Level.Warn}">
+                                <Setter Property="Background" Value="#33FF0000"></Setter>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Level}" Value="{x:Static core:Level.Error}">
+                                <Setter Property="Background" Value="#66FF0000"></Setter>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </DataGrid.RowStyle>
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Timestamp" Binding="{Binding TimeStamp}"/>
+                    <DataGridTextColumn Header="Level" Binding="{Binding Level}"/>
+                    <DataGridTextColumn Header="Logger Name" Binding="{Binding LoggerName}"/>
+                    <DataGridTextColumn Header="Message" Binding="{Binding RenderedMessage}"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </ScrollViewer>
+
+        <UniformGrid Grid.Row="1" Margin="8" HorizontalAlignment="Left">
+            <CheckBox Content="Listen To Debug" IsChecked="{Binding ShowDebugMessages}" Grid.Column="0"/>
+            <CheckBox Content="Listen To Info" Margin="16,0,0,0" IsChecked="{Binding ShowInfoMessages}" Grid.Column="1"/>
+        </UniformGrid>
+    </Grid>
+</UserControl>
