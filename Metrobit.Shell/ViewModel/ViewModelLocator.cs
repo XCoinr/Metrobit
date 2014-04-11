@@ -82,9 +82,29 @@ namespace Metrobit.Shell.ViewModel
             }
         }
 
+        public HomeViewModel Home
+        {
+            get { return ServiceLocator.Current.GetInstance<HomeViewModel>(); }
+        }
+
         public AboutViewModel About
         {
             get { return ServiceLocator.Current.GetInstance<AboutViewModel>(); }
+        }
+
+        public SendViewModel Send
+        {
+            get { return ServiceLocator.Current.GetInstance<SendViewModel>(); }
+        }
+
+        public ReceiveViewModel Receive
+        {
+            get { return ServiceLocator.Current.GetInstance<ReceiveViewModel>(); }
+        }
+
+        public TransactionsViewModel Transactions
+        {
+            get { return ServiceLocator.Current.GetInstance<TransactionsViewModel>(); }
         }
         
         public static void Cleanup()

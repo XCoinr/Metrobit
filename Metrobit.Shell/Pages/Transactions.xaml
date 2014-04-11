@@ -1,11 +1,11 @@
-﻿<UserControl x:Class="Metrobit.Shell.Pages.Home"
+﻿<UserControl x:Class="Metrobit.Shell.Pages.Transactions"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             mc:Ignorable="d" DataContext="{Binding Source={StaticResource Locator}, Path=Home}"
+             mc:Ignorable="d" DataContext="{Binding Source={StaticResource Locator}, Path=Transactions}"
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
-            <TextBlock Style="{StaticResource Heading2}">Home</TextBlock>
+            
     </Grid>
 </UserControl>

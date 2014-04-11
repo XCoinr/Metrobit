@@ -33,6 +33,9 @@
         <mui:LinkGroup DisplayName="home">
             <mui:LinkGroup.Links>
                 <mui:Link DisplayName="summary" Source="/Pages/Home.xaml" />
+                <mui:Link DisplayName="send" Source="/Pages/Send.xaml" />
+                <mui:Link DisplayName="receive" Source="/Pages/Receive.xaml" />
+                <mui:Link DisplayName="transactions" Source="/Pages/Transactions.xaml" />
             </mui:LinkGroup.Links>
         </mui:LinkGroup>
         <mui:LinkGroup DisplayName="settings" GroupName="settings">
