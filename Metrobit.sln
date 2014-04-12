@@ -5,6 +5,11 @@ VisualStudioVersion = 12.0.30110.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Metrobit.Shell", "Metrobit.Shell\Metrobit.Shell.csproj", "{12C91DBA-AB1C-42D7-9E2C-514FC8957265}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Lib", "Lib", "{3760BE06-9555-4162-8180-22A2E1D09F2B}"
+	ProjectSection(SolutionItems) = preProject
+		Lib\bitcoinj-0.12-SNAPSHOT-bundled.dll = Lib\bitcoinj-0.12-SNAPSHOT-bundled.dll
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
