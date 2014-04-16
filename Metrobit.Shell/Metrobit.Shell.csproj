@@ -103,6 +103,7 @@
     <Compile Include="Messages\CoinsReceivedMessage.cs" />
     <Compile Include="Messages\Log4NetMessage.cs" />
     <Compile Include="Messages\ShutdownNotificationMessage.cs" />
+    <Compile Include="Models\ReceivedCoinsFutureCallback.cs" />
     <Compile Include="Pages\Home.xaml.cs">
       <DependentUpon>Home.xaml</DependentUpon>
     </Compile>
@@ -124,6 +125,8 @@
     <Compile Include="ViewModel\HomeViewModel.cs" />
     <Compile Include="ViewModel\LoggingViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
+    <Compile Include="Models\MetrobitWalletAppKit.cs" />
+    <Compile Include="Models\MetrobitWalletListener.cs" />
     <Compile Include="ViewModel\ReceiveViewModel.cs" />
     <Compile Include="ViewModel\SendViewModel.cs" />
     <Compile Include="ViewModel\SettingsAppearanceViewModel.cs" />
