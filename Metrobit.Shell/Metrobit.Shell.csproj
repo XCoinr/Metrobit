@@ -121,6 +121,7 @@
     </Compile>
     <Compile Include="Utils\Log4NetMessageAppender.cs" />
     <Compile Include="Utils\WinAPI.cs" />
+    <Compile Include="ValueConverters\ECKeyToBase58StringConverter.cs" />
     <Compile Include="ViewModel\AboutViewModel.cs" />
     <Compile Include="ViewModel\HomeViewModel.cs" />
     <Compile Include="ViewModel\LoggingViewModel.cs" />

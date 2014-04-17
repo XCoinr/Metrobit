@@ -15,7 +15,6 @@
 using Castle.Windsor;
 using Castle.Windsor.Installer;
 using GalaSoft.MvvmLight;
-using Metrobit.Shell.Content;
 using Metrobit.Shell.Utils;
 using Microsoft.Practices.ServiceLocation;
 
@@ -38,6 +37,10 @@ namespace Metrobit.Shell.ViewModel
             {
                 // Create design time view services and models
                 //SimpleIoc.Default.Register<IDataService, DesignDataService>();
+
+                var container = new WindsorContainer();
+
+                ServiceLocator.SetLocatorProvider(() => new WindsorServiceLocator(container));
             }
             else
             {
