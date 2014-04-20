@@ -2,6 +2,7 @@
 using System.Globalization;
 using System.Windows.Data;
 using com.google.bitcoin.core;
+using com.google.bitcoin.@params;
 
 namespace Metrobit.Shell.ValueConverters
 {
@@ -16,7 +17,8 @@ namespace Metrobit.Shell.ValueConverters
                 return value;
             }
 
-            return Base58.encode(key.getPrivKeyBytes());
+            NetworkParameters parameters = TestNet3Params.get();
+            return new Address(parameters, key.getPubKeyHash()).toString();
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

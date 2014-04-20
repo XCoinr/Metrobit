@@ -6,6 +6,16 @@
              mc:Ignorable="d" DataContext="{Binding Source={StaticResource Locator}, Path=Home}"
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
-            <TextBlock Style="{StaticResource Heading2}">Home</TextBlock>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <TextBlock Style="{StaticResource Heading2}">Home</TextBlock>
+        <TextBlock Text="Balance" Grid.Row="1" Grid.Column="0"/>
+        <TextBlock Text="{Binding Balance}" Grid.Row="1" Grid.Column="1"/>
     </Grid>
 </UserControl>
