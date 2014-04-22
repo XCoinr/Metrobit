@@ -1,6 +1,8 @@
 ﻿using System.Collections.ObjectModel;
+using System.Windows.Input;
 using com.google.bitcoin.core;
 using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Command;
 using Metrobit.Shell.Models;
 
 namespace Metrobit.Shell.ViewModel
@@ -23,5 +25,21 @@ namespace Metrobit.Shell.ViewModel
         }
 
         public ObservableCollection<ECKey> Keys { get; private set; }
+
+        #region NewKeyCommand
+
+        private ICommand _newKeyCommand;
+
+        public ICommand NewKeyCommand
+        {
+            get { return _newKeyCommand ?? (_newKeyCommand = new RelayCommand(NewKey)); }
+        }
+
+        private void NewKey()
+        {
+            _appKit.wallet().addKey(new ECKey());
+        }
+
+        #endregion
     }
 }

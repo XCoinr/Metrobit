@@ -6,18 +6,27 @@
              xmlns:valueConverters="clr-namespace:Metrobit.Shell.ValueConverters"
              mc:Ignorable="d" DataContext="{Binding Source={StaticResource Locator}, Path=Receive}"
              d:DesignHeight="300" d:DesignWidth="300">
-    
+
     <UserControl.Resources>
         <valueConverters:ECKeyToBase58StringConverter x:Key="ECKeyToBase58StringConverter"/>
     </UserControl.Resources>
-    
+
     <Grid>
-            <ItemsControl ItemsSource="{Binding Keys}">
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <TextBlock Text="{Binding Converter={StaticResource ECKeyToBase58StringConverter}}"/>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        
+        <ItemsControl ItemsSource="{Binding Keys}" Margin="8">
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding Converter={StaticResource ECKeyToBase58StringConverter}}"/>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+        
+        <UniformGrid Grid.Row="1" Margin="8" HorizontalAlignment="Right">
+            <Button Content="New Address" Command="{Binding }"/>
+        </UniformGrid>
     </Grid>
 </UserControl>
