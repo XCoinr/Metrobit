@@ -101,6 +101,7 @@
     </Compile>
     <Compile Include="MainInstaller.cs" />
     <Compile Include="Messages\CoinsReceivedMessage.cs" />
+    <Compile Include="Messages\KeysAddedMessage.cs" />
     <Compile Include="Messages\Log4NetMessage.cs" />
     <Compile Include="Messages\ShutdownNotificationMessage.cs" />
     <Compile Include="Models\ReceivedCoinsFutureCallback.cs" />

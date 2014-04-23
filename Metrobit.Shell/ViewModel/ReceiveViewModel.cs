@@ -3,6 +3,9 @@ using System.Windows.Input;
 using com.google.bitcoin.core;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
+using GalaSoft.MvvmLight.Messaging;
+using GalaSoft.MvvmLight.Threading;
+using Metrobit.Shell.Messages;
 using Metrobit.Shell.Models;
 
 namespace Metrobit.Shell.ViewModel
@@ -22,6 +25,15 @@ namespace Metrobit.Shell.ViewModel
             {
                 Keys.Add(keys.get(i) as ECKey);
             }
+
+            Messenger.Default.Register<KeysAddedMessage>(this, message => DispatcherHelper.CheckBeginInvokeOnUI(() =>
+            {
+                for (int i = 0; i < message.Keys.size(); i++)
+                {
+                    var key = message.Keys.get(i) as ECKey;
+                    Keys.Add(key);
+                }
+            }));
         }
 
         public ObservableCollection<ECKey> Keys { get; private set; }

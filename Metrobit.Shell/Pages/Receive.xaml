@@ -26,7 +26,7 @@
         </ItemsControl>
         
         <UniformGrid Grid.Row="1" Margin="8" HorizontalAlignment="Right">
-            <Button Content="New Address" Command="{Binding }"/>
+            <Button Content="New Address" Command="{Binding NewKeyCommand}"/>
         </UniformGrid>
     </Grid>
 </UserControl>

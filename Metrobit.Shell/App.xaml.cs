@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using FirstFloor.ModernUI.Presentation;
+using GalaSoft.MvvmLight.Threading;
 using Metrobit.Shell.Properties;
 
 namespace Metrobit.Shell
@@ -9,6 +10,11 @@ namespace Metrobit.Shell
     /// </summary>
     public partial class App : Application
     {
+        static App()
+        {
+            DispatcherHelper.Initialize();
+        }
+
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);

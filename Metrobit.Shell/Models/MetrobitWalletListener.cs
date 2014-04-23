@@ -40,6 +40,9 @@ namespace Metrobit.Shell.Models
         public override void onKeysAdded(Wallet wallet, List keys)
         {
             base.onKeysAdded(wallet, keys);
+
+            var msg = new KeysAddedMessage {Keys = keys, Wallet = wallet};
+            Messenger.Default.Send(msg);
         }
 
         public override void onReorganize(Wallet wallet)
