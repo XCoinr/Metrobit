@@ -1,7 +1,8 @@
 using System;
 using com.google.bitcoin.core;
 using com.google.bitcoin.kits;
-using Metrobit.Shell.ViewModel;
+using GalaSoft.MvvmLight.Messaging;
+using Metrobit.Shell.Messages;
 
 namespace Metrobit.Shell.Models
 {
@@ -12,6 +13,12 @@ namespace Metrobit.Shell.Models
         public MetrobitWalletAppKit(NetworkParameters @params, java.io.File directory, string filePrefix) : base(@params, directory, filePrefix)
         {
             setAutoSave(true);
+
+            Messenger.Default.Register<ShutdownNotificationMessage>(null, message =>
+            {
+                stopAsync();
+                awaitTerminated();
+            });
         }
 
         public event Action WalletSetupComplete;

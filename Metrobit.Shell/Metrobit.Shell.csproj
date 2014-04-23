@@ -100,6 +100,7 @@
       <DependentUpon>LoggingControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainInstaller.cs" />
+    <Compile Include="Messages\BroadcastCompleteMessage.cs" />
     <Compile Include="Messages\CoinsReceivedMessage.cs" />
     <Compile Include="Messages\CoinsSentMessage.cs" />
     <Compile Include="Messages\KeysAddedMessage.cs" />
@@ -109,6 +110,7 @@
     <Compile Include="Messages\TransactionConfidenceChangedMessage.cs" />
     <Compile Include="Messages\WalletChangedMessage.cs" />
     <Compile Include="Messages\WalletReorganizeMessage.cs" />
+    <Compile Include="Models\BroadcastCompleteListener.cs" />
     <Compile Include="Models\ReceivedCoinsFutureCallback.cs" />
     <Compile Include="Models\SentCoinsFutureCallback.cs" />
     <Compile Include="Pages\Home.xaml.cs">

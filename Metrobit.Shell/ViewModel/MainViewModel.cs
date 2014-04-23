@@ -1,9 +1,4 @@
-using com.google.bitcoin.core;
-using com.google.bitcoin.jni;
-using com.google.bitcoin.@params;
-using com.google.common.util.concurrent;
 using GalaSoft.MvvmLight;
-using Metrobit.Shell.Models;
 
 namespace Metrobit.Shell.ViewModel
 {
@@ -21,9 +16,6 @@ namespace Metrobit.Shell.ViewModel
     /// </summary>
     public class MainViewModel : ViewModelBase
     {
-        private MetrobitWalletAppKit _appKit;
-        private Service _service;
-
         /// <summary>
         /// Initializes a new instance of the MainViewModel class.
         /// </summary>
@@ -37,8 +29,6 @@ namespace Metrobit.Shell.ViewModel
             ////{
             ////    // Code runs "for real"
             ////}
-
-            
         }
     }
 }

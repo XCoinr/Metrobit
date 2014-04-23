@@ -97,7 +97,6 @@ namespace Metrobit.Shell.Models
 
             var msg = new WalletChangedMessage { Wallet = wallet };
             Messenger.Default.Send(msg);
-            
         }
     }
 }

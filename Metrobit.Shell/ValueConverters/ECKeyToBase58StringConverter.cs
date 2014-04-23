@@ -2,7 +2,8 @@
 using System.Globalization;
 using System.Windows.Data;
 using com.google.bitcoin.core;
-using com.google.bitcoin.@params;
+using Metrobit.Shell.Models;
+using Microsoft.Practices.ServiceLocation;
 
 namespace Metrobit.Shell.ValueConverters
 {
@@ -17,7 +18,7 @@ namespace Metrobit.Shell.ValueConverters
                 return value;
             }
 
-            NetworkParameters parameters = TestNet3Params.get();
+            var parameters = ServiceLocator.Current.GetInstance<MetrobitWalletAppKit>().@params();
             return new Address(parameters, key.getPubKeyHash()).toString();
         }
 
