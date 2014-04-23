@@ -1,10 +1,9 @@
 ﻿using com.google.bitcoin.core;
-using GalaSoft.MvvmLight.Messaging;
 using java.math;
 
 namespace Metrobit.Shell.Messages
 {
-    public class CoinsReceivedMessage : MessageBase
+    class CoinsSentMessage
     {
         public Wallet Wallet { get; set; }
         public Transaction Transaction { get; set; }

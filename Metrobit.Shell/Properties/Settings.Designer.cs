@@ -25,37 +25,6 @@ namespace Metrobit.Shell.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute(@"&lt;?xml version=""1.0"" encoding=""utf-16""?&gt;
-&lt;WINDOWPLACEMENT xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"" xmlns:xsd=""http://www.w3.org/2001/XMLSchema""&gt;
-  &lt;length&gt;0&lt;/length&gt;
-  &lt;flags&gt;0&lt;/flags&gt;
-  &lt;showCmd&gt;0&lt;/showCmd&gt;
-  &lt;minPosition&gt;
-    &lt;X&gt;0&lt;/X&gt;
-    &lt;Y&gt;0&lt;/Y&gt;
-  &lt;/minPosition&gt;
-  &lt;maxPosition&gt;
-    &lt;X&gt;0&lt;/X&gt;
-    &lt;Y&gt;0&lt;/Y&gt;
-  &lt;/maxPosition&gt;
-  &lt;normalPosition&gt;
-    &lt;Left&gt;0&lt;/Left&gt;
-    &lt;Top&gt;0&lt;/Top&gt;
-    &lt;Right&gt;0&lt;/Right&gt;
-    &lt;Bottom&gt;0&lt;/Bottom&gt;
-  &lt;/normalPosition&gt;
-&lt;/WINDOWPLACEMENT&gt;")]
-        public global::Metrobit.Shell.Utils.WINDOWPLACEMENT WindowPlacement {
-            get {
-                return ((global::Metrobit.Shell.Utils.WINDOWPLACEMENT)(this["WindowPlacement"]));
-            }
-            set {
-                this["WindowPlacement"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("/FirstFloor.ModernUI;component/Assets/ModernUI.Dark.xaml")]
         public global::System.Uri ThemeSource {
             get {
@@ -75,6 +44,37 @@ namespace Metrobit.Shell.Properties {
             }
             set {
                 this["AccentColor"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute(@"<?xml version=""1.0"" encoding=""utf-16""?>
+<WINDOWPLACEMENT xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"" xmlns:xsd=""http://www.w3.org/2001/XMLSchema"">
+  <length>0</length>
+  <flags>0</flags>
+  <showCmd>0</showCmd>
+  <minPosition>
+    <X>0</X>
+    <Y>0</Y>
+  </minPosition>
+  <maxPosition>
+    <X>0</X>
+    <Y>0</Y>
+  </maxPosition>
+  <normalPosition>
+    <Left>0</Left>
+    <Top>0</Top>
+    <Right>0</Right>
+    <Bottom>0</Bottom>
+  </normalPosition>
+</WINDOWPLACEMENT>")]
+        public global::Metrobit.Shell.Utils.WINDOWPLACEMENT WindowPlacement {
+            get {
+                return ((global::Metrobit.Shell.Utils.WINDOWPLACEMENT)(this["WindowPlacement"]));
+            }
+            set {
+                this["WindowPlacement"] = value;
             }
         }
     }

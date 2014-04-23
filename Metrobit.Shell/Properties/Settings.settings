@@ -2,33 +2,33 @@
 <SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="Metrobit.Shell.Properties" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
-    <Setting Name="WindowPlacement" Type="Metrobit.Shell.Utils.WINDOWPLACEMENT" Scope="User">
-      <Value Profile="(Default)">&amp;lt;?xml version="1.0" encoding="utf-16"?&amp;gt;
-&amp;lt;WINDOWPLACEMENT xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&amp;gt;
-  &amp;lt;length&amp;gt;0&amp;lt;/length&amp;gt;
-  &amp;lt;flags&amp;gt;0&amp;lt;/flags&amp;gt;
-  &amp;lt;showCmd&amp;gt;0&amp;lt;/showCmd&amp;gt;
-  &amp;lt;minPosition&amp;gt;
-    &amp;lt;X&amp;gt;0&amp;lt;/X&amp;gt;
-    &amp;lt;Y&amp;gt;0&amp;lt;/Y&amp;gt;
-  &amp;lt;/minPosition&amp;gt;
-  &amp;lt;maxPosition&amp;gt;
-    &amp;lt;X&amp;gt;0&amp;lt;/X&amp;gt;
-    &amp;lt;Y&amp;gt;0&amp;lt;/Y&amp;gt;
-  &amp;lt;/maxPosition&amp;gt;
-  &amp;lt;normalPosition&amp;gt;
-    &amp;lt;Left&amp;gt;0&amp;lt;/Left&amp;gt;
-    &amp;lt;Top&amp;gt;0&amp;lt;/Top&amp;gt;
-    &amp;lt;Right&amp;gt;0&amp;lt;/Right&amp;gt;
-    &amp;lt;Bottom&amp;gt;0&amp;lt;/Bottom&amp;gt;
-  &amp;lt;/normalPosition&amp;gt;
-&amp;lt;/WINDOWPLACEMENT&amp;gt;</Value>
-    </Setting>
     <Setting Name="ThemeSource" Type="System.Uri" Scope="User">
       <Value Profile="(Default)">/FirstFloor.ModernUI;component/Assets/ModernUI.Dark.xaml</Value>
     </Setting>
     <Setting Name="AccentColor" Type="System.Windows.Media.Color" Scope="User">
       <Value Profile="(Default)">#FF647687</Value>
+    </Setting>
+    <Setting Name="WindowPlacement" Type="Metrobit.Shell.Utils.WINDOWPLACEMENT" Scope="User">
+      <Value Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
+&lt;WINDOWPLACEMENT xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;length&gt;0&lt;/length&gt;
+  &lt;flags&gt;0&lt;/flags&gt;
+  &lt;showCmd&gt;0&lt;/showCmd&gt;
+  &lt;minPosition&gt;
+    &lt;X&gt;0&lt;/X&gt;
+    &lt;Y&gt;0&lt;/Y&gt;
+  &lt;/minPosition&gt;
+  &lt;maxPosition&gt;
+    &lt;X&gt;0&lt;/X&gt;
+    &lt;Y&gt;0&lt;/Y&gt;
+  &lt;/maxPosition&gt;
+  &lt;normalPosition&gt;
+    &lt;Left&gt;0&lt;/Left&gt;
+    &lt;Top&gt;0&lt;/Top&gt;
+    &lt;Right&gt;0&lt;/Right&gt;
+    &lt;Bottom&gt;0&lt;/Bottom&gt;
+  &lt;/normalPosition&gt;
+&lt;/WINDOWPLACEMENT&gt;</Value>
     </Setting>
   </Settings>
 </SettingsFile>
