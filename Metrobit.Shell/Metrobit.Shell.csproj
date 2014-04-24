@@ -141,6 +141,7 @@
     <Compile Include="ViewModel\SendViewModel.cs" />
     <Compile Include="ViewModel\SettingsAppearanceViewModel.cs" />
     <Compile Include="ViewModel\TransactionsViewModel.cs" />
+    <Compile Include="ViewModel\TransactionViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
     <Compile Include="Utils\WindsorServiceLocator.cs" />
     <Page Include="Content\About.xaml">
