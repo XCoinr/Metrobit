@@ -115,7 +115,7 @@
     </Compile>
     <Compile Include="MainInstaller.cs" />
     <Compile Include="Messages\BroadcastCompleteMessage.cs" />
-    <Compile Include="Messages\CoinsReceivedMessage.cs" />
+    <Compile Include="Messages\NewTransactionMessage.cs" />
     <Compile Include="Messages\CoinsSentMessage.cs" />
     <Compile Include="Messages\KeysAddedMessage.cs" />
     <Compile Include="Messages\Log4NetMessage.cs" />
@@ -125,6 +125,7 @@
     <Compile Include="Messages\WalletChangedMessage.cs" />
     <Compile Include="Messages\WalletReorganizeMessage.cs" />
     <Compile Include="Models\BroadcastCompleteListener.cs" />
+    <Compile Include="Models\DAL\MbAddress.cs" />
     <Compile Include="Models\DAL\MbContext.cs" />
     <Compile Include="Models\DAL\MbTransaction.cs" />
     <Compile Include="Models\ReceivedCoinsFutureCallback.cs" />
@@ -144,6 +145,7 @@
     <Compile Include="Pages\Transactions.xaml.cs">
       <DependentUpon>Transactions.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Utils\BitcoinJExtentions.cs" />
     <Compile Include="Utils\Log4NetMessageAppender.cs" />
     <Compile Include="Utils\WinAPI.cs" />
     <Compile Include="ValueConverters\ECKeyToBase58StringConverter.cs" />
