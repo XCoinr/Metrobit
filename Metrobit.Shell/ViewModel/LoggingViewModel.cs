@@ -5,6 +5,7 @@ using System.Windows;
 using System.Windows.Threading;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Messaging;
+using GalaSoft.MvvmLight.Threading;
 using log4net.Core;
 using Metrobit.Shell.Messages;
 
@@ -16,8 +17,8 @@ namespace Metrobit.Shell.ViewModel
         {
             LoggingEvents = new ObservableCollection<LoggingEvent>();
 
-            Messenger.Default.Register<Log4NetMessage>(this, message => Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Background,
-                new Action(() => ProcessMessage(message))));
+            Messenger.Default.Register<Log4NetMessage>(this,
+                message => DispatcherHelper.CheckBeginInvokeOnUI(() => ProcessMessage(message)));
         }
 
         private void ProcessMessage(Log4NetMessage message)
