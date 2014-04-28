@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Runtime.InteropServices;
+using System.Threading.Tasks;
 using System.Windows.Interop;
 using GalaSoft.MvvmLight.Messaging;
 using Metrobit.Shell.Messages;
@@ -53,10 +54,15 @@ namespace Metrobit.Shell
 
         private void MainWindow_OnClosing(object sender, CancelEventArgs e)
         {
-            var msg = new ShutdownNotificationMessage();
-            Messenger.Default.Send(msg);
+            e.Cancel = true;
 
-            e.Cancel = msg.IsCancelled;
+            Task.Factory.StartNew(() =>
+            {
+                var msg = new ShutdownNotificationMessage();
+                Messenger.Default.Send(msg);
+                Console.WriteLine("Here");
+            });
+            
         }
     }
 }

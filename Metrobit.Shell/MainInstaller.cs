@@ -28,6 +28,9 @@ namespace Metrobit.Shell
                 "Metrobit");
 
             var appKit = new MetrobitWalletAppKit(parameters, new java.io.File(dataDirectory), "metrobit");
+
+            appKit.setAutoSave(true);
+            appKit.setDownloadListener(new MetrobitDownloadListener());
             
             //Not sure if we need this yet.
             var service = appKit.startAsync();
