@@ -42,10 +42,11 @@ namespace Metrobit.Shell
             Messenger.Default.Register<ShutdownNotificationMessage>(this, message =>
             {
                 var appKit = ServiceLocator.Current.GetInstance<MetrobitWalletAppKit>();
-                appKit.stopAsync();
-
+                
                 try
                 {
+                    appKit.wallet().shutdownAutosaveAndWait();
+                    appKit.stopAsync();
                     appKit.awaitTerminated(1, TimeUnit.SECONDS);
                 }
                 catch (Exception exception)

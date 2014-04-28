@@ -1,6 +1,8 @@
 using System;
+using System.IO;
 using com.google.bitcoin.core;
 using com.google.bitcoin.kits;
+using java.util.concurrent;
 
 namespace Metrobit.Shell.Models
 {
@@ -10,7 +12,6 @@ namespace Metrobit.Shell.Models
 
         public MetrobitWalletAppKit(NetworkParameters @params, java.io.File directory, string filePrefix) : base(@params, directory, filePrefix)
         {
-            
         }
 
         public event Action WalletSetupComplete;
@@ -27,12 +28,17 @@ namespace Metrobit.Shell.Models
         {
             base.onSetupCompleted();
 
+            wallet().addEventListener(new MetrobitWalletListener());
+
+            if (!File.Exists(vWalletFile.getAbsolutePath()))
+            {
+                wallet().removeKey(wallet().getKeys().get(0) as ECKey);
+            }
+
             if (wallet().getKeychainSize() < 1)
             {
                 wallet().addKey(new ECKey());
             }
-
-            wallet().addEventListener(new MetrobitWalletListener());
 
             IsSetupComplete = true;
             _log.Info("Wallet setup complete");
