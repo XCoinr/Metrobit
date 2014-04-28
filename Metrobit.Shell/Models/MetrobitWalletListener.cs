@@ -141,8 +141,9 @@ namespace Metrobit.Shell.Models
 
             using (var ctx = new MbContext())
             {
+                var txHash = tx.getHash().toBigInteger().longValue();
                 var transaction =
-                    (from t in ctx.Transactions where t.Hash == tx.getHash().toBigInteger().longValue() select t)
+                    (from t in ctx.Transactions where t.Hash == txHash select t)
                         .FirstOrDefault();
 
                 if (transaction == null)
