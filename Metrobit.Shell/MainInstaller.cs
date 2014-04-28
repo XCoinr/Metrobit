@@ -24,8 +24,7 @@ namespace Metrobit.Shell
             //Currently hard coded to work with TestNet.
             NetworkParameters parameters = TestNet3Params.get();
 
-            var dataDirectory = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-                "Metrobit");
+            var dataDirectory = App.AppDataDirectory;
 
             var appKit = new MetrobitWalletAppKit(parameters, new java.io.File(dataDirectory), "metrobit");
 
