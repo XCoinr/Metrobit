@@ -146,6 +146,7 @@
     <Compile Include="Models\DAL\MbAddress.cs" />
     <Compile Include="Models\DAL\MbContext.cs" />
     <Compile Include="Models\DAL\MbTransaction.cs" />
+    <Compile Include="Models\MetrobitDownloadListener.cs" />
     <Compile Include="Models\ReceivedCoinsFutureCallback.cs" />
     <Compile Include="Models\SentCoinsFutureCallback.cs" />
     <Compile Include="Pages\Home.xaml.cs">

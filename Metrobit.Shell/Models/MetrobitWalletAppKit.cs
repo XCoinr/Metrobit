@@ -1,31 +1,24 @@
 using System;
+using System.IO;
 using com.google.bitcoin.core;
 using com.google.bitcoin.kits;
-using GalaSoft.MvvmLight.Messaging;
-using Metrobit.Shell.Messages;
+using java.util.concurrent;
 
 namespace Metrobit.Shell.Models
 {
-    public class MetrobitWalletAppKit : WalletAppKit
+    public sealed class MetrobitWalletAppKit : WalletAppKit
     {
         private static readonly log4net.ILog _log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
         public MetrobitWalletAppKit(NetworkParameters @params, java.io.File directory, string filePrefix) : base(@params, directory, filePrefix)
         {
-            setAutoSave(true);
-
-            Messenger.Default.Register<ShutdownNotificationMessage>(null, message =>
-            {
-                stopAsync();
-                awaitTerminated();
-            });
         }
 
         public event Action WalletSetupComplete;
 
-        protected virtual void OnWalletSetupComplete()
+        private void OnWalletSetupComplete()
         {
-            Action handler = WalletSetupComplete;
+            var handler = WalletSetupComplete;
             if (handler != null) handler();
         }
 
@@ -35,12 +28,17 @@ namespace Metrobit.Shell.Models
         {
             base.onSetupCompleted();
 
+            wallet().addEventListener(new MetrobitWalletListener());
+
+            if (!File.Exists(vWalletFile.getAbsolutePath()))
+            {
+                wallet().removeKey(wallet().getKeys().get(0) as ECKey);
+            }
+
             if (wallet().getKeychainSize() < 1)
             {
                 wallet().addKey(new ECKey());
             }
-
-            wallet().addEventListener(new MetrobitWalletListener());
 
             IsSetupComplete = true;
             _log.Info("Wallet setup complete");
