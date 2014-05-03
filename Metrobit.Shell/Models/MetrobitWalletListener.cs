@@ -22,30 +22,7 @@ namespace Metrobit.Shell.Models
 
             base.onCoinsReceived(wallet, tx, prevBalance, newBalance);
 
-            var newTx = new MbTransaction
-                {
-                    Description = "Coins received",
-                    ConfidenceType = tx.getConfidence().getConfidenceType().ToMbConfidenceTypes(),
-                    Depth = tx.getConfidence().getDepthInBlocks(),
-                    Hash = tx.getHash().toBigInteger().longValue(),
-                    Timestamp = tx.getUpdateTime().ToDateTime(),
-                    NewBalance = newBalance.longValue(),
-                    PreviousBalance = prevBalance.longValue()
-                };
-
-            using (var ctx = new MbContext())
-            {
-                ctx.Transactions.Add(newTx);
-                ctx.SaveChanges();
-            }
-
-            var msg = new NewTransactionMessage
-            {
-                Wallet = wallet,
-                Transaction = newTx
-            };
-
-            Messenger.Default.Send(msg);
+            StoreAndBroadcastNewTransaction(wallet, tx);
 
             Futures.addCallback(tx.getConfidence().getDepthFuture(1), new ReceivedCoinsFutureCallback());
         }
@@ -56,15 +33,20 @@ namespace Metrobit.Shell.Models
 
             base.onCoinsSent(wallet, tx, prevBalance, newBalance);
 
+            StoreAndBroadcastNewTransaction(wallet, tx);
+
+            Futures.addCallback(tx.getConfidence().getDepthFuture(1), new SentCoinsFutureCallback());
+        }
+
+        private static void StoreAndBroadcastNewTransaction(Wallet wallet, Transaction tx)
+        {
             var newTx = new MbTransaction
             {
                 Description = "Coins sent",
                 ConfidenceType = tx.getConfidence().getConfidenceType().ToMbConfidenceTypes(),
                 Depth = tx.getConfidence().getDepthInBlocks(),
                 Hash = tx.getHash().toBigInteger().longValue(),
-                Timestamp = tx.getUpdateTime().ToDateTime(),
-                NewBalance = newBalance.longValue(),
-                PreviousBalance = prevBalance.longValue()
+                Timestamp = tx.getUpdateTime().ToDateTime()
             };
 
             using (var ctx = new MbContext())
@@ -78,10 +60,8 @@ namespace Metrobit.Shell.Models
                 Wallet = wallet,
                 Transaction = newTx
             };
-            
-            Messenger.Default.Send(msg);
 
-            Futures.addCallback(tx.getConfidence().getDepthFuture(1), new SentCoinsFutureCallback());
+            Messenger.Default.Send(msg);
         }
 
         public override void onKeysAdded(Wallet wallet, List keys)
@@ -150,7 +130,12 @@ namespace Metrobit.Shell.Models
                 {
                     var error = "Update received for unknown transaction";
                     _log.Error(error);
-                    throw new InvalidOperationException(error);
+
+                    StoreAndBroadcastNewTransaction(wallet, tx);
+
+                    transaction =
+                    (from t in ctx.Transactions where t.Hash == txHash select t)
+                        .FirstOrDefault();
                 }
 
                 transaction.Depth = tx.getConfidence().getDepthInBlocks();

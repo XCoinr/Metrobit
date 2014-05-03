@@ -54,7 +54,7 @@ namespace Metrobit.Shell
 
         private void MainWindow_OnClosing(object sender, CancelEventArgs e)
         {
-            e.Cancel = true;
+            //e.Cancel = true;
 
             Task.Factory.StartNew(() =>
             {

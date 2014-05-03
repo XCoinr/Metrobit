@@ -142,6 +142,7 @@
     <Compile Include="Messages\TransactionConfidenceChangedMessage.cs" />
     <Compile Include="Messages\WalletChangedMessage.cs" />
     <Compile Include="Messages\WalletReorganizeMessage.cs" />
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\BroadcastCompleteListener.cs" />
     <Compile Include="Models\DAL\MbAddress.cs" />
     <Compile Include="Models\DAL\MbContext.cs" />

@@ -13,8 +13,6 @@ namespace Metrobit.Shell.Models.DAL
 
         public DateTime Timestamp { get; set; }
         public string Description { get; set; }
-        public long PreviousBalance { get; set; }
-        public long NewBalance { get; set; }
         public ConfidenceTypes ConfidenceType { get; set; }
         public int Depth { get; set; }
 
