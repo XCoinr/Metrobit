@@ -17,16 +17,17 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         
-        <ItemsControl ItemsSource="{Binding Keys}" Margin="8">
+        <ItemsControl ItemsSource="{Binding Addresses}" Margin="8">
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <TextBlock Text="{Binding Converter={StaticResource ECKeyToBase58StringConverter}}"/>
+                    <TextBlock Text="{Binding Address}"/>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>
         
-        <UniformGrid Grid.Row="1" Margin="8" HorizontalAlignment="Right">
-            <Button Content="New Address" Command="{Binding NewKeyCommand}"/>
+        <UniformGrid Grid.Row="1" Columns="2" Margin="8" HorizontalAlignment="Right">
+            <Button Content="Rescan Wallet" Command="{Binding RescanWalletCommand}" Margin="8"/>
+            <Button Content="New Address" Command="{Binding NewKeyCommand}" Margin="8"/>
         </UniformGrid>
     </Grid>
 </UserControl>

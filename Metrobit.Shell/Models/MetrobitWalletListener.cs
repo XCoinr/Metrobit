@@ -14,11 +14,14 @@ namespace Metrobit.Shell.Models
 {
     public class MetrobitWalletListener : AbstractWalletEventListener
     {
-        private static readonly log4net.ILog _log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly log4net.ILog _log =
+            log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
-        public override void onCoinsReceived(Wallet wallet, Transaction tx, java.math.BigInteger prevBalance, java.math.BigInteger newBalance)
+        public override void onCoinsReceived(Wallet wallet, Transaction tx, java.math.BigInteger prevBalance,
+            java.math.BigInteger newBalance)
         {
-            _log.InfoFormat("onCoinsReceived: wallet: {0}, tx: {1}, prevBalance: {2}, newBalance: {3}", wallet, tx, prevBalance, newBalance);
+            _log.InfoFormat("onCoinsReceived: wallet: {0}, tx: {1}, prevBalance: {2}, newBalance: {3}", wallet, tx,
+                prevBalance, newBalance);
 
             base.onCoinsReceived(wallet, tx, prevBalance, newBalance);
 
@@ -29,7 +32,8 @@ namespace Metrobit.Shell.Models
 
         public override void onCoinsSent(Wallet wallet, Transaction tx, BigInteger prevBalance, BigInteger newBalance)
         {
-            _log.InfoFormat("onCoinsSent: wallet: {0}, tx: {1}, prevBalance: {2}, newBalance: {3}", wallet, tx, prevBalance, newBalance);
+            _log.InfoFormat("onCoinsSent: wallet: {0}, tx: {1}, prevBalance: {2}, newBalance: {3}", wallet, tx,
+                prevBalance, newBalance);
 
             base.onCoinsSent(wallet, tx, prevBalance, newBalance);
 
@@ -40,6 +44,14 @@ namespace Metrobit.Shell.Models
 
         private static void StoreAndBroadcastNewTransaction(Wallet wallet, Transaction tx)
         {
+            using (var ctx = new MbContext())
+            {
+                StoreAndBroadcastNewTransaction(wallet, tx, ctx);
+            }
+        }
+
+        private static void StoreAndBroadcastNewTransaction(Wallet wallet, Transaction tx, MbContext ctx)
+        {
             var newTx = new MbTransaction
             {
                 Description = "Coins sent",
@@ -49,11 +61,8 @@ namespace Metrobit.Shell.Models
                 Timestamp = tx.getUpdateTime().ToDateTime()
             };
 
-            using (var ctx = new MbContext())
-            {
-                ctx.Transactions.Add(newTx);
-                ctx.SaveChanges();
-            }
+            ctx.Transactions.Add(newTx);
+            ctx.SaveChanges();
 
             var msg = new NewTransactionMessage
             {
@@ -89,7 +98,7 @@ namespace Metrobit.Shell.Models
                 ctx.SaveChanges();
             }
 
-            var msg = new KeysAddedMessage {Keys = keys, Wallet = wallet};
+            var msg = new KeysAddedMessage { Keys = keys, Wallet = wallet };
             Messenger.Default.Send(msg);
         }
 
@@ -109,7 +118,7 @@ namespace Metrobit.Shell.Models
 
             base.onScriptsAdded(wallet, scripts);
 
-            var msg = new ScriptsAddedMessage { Wallet = wallet, Scripts = scripts};
+            var msg = new ScriptsAddedMessage { Wallet = wallet, Scripts = scripts };
             Messenger.Default.Send(msg);
         }
 
