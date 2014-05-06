@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.Numerics;
 
 namespace Metrobit.Shell.Models.DAL
 {
@@ -8,9 +9,8 @@ namespace Metrobit.Shell.Models.DAL
         /// <summary>
         /// Yes, I know this is vulnerable to Malleability, but as it's a remote edge case, I'm going to defer looking at a better solution.
         /// </summary>
-        [Key]
-        public long Hash { get; set; }
-
+        public string Hash { get; set; }
+        public long MbTransactionId { get; set; }
         public DateTime Timestamp { get; set; }
         public string Description { get; set; }
         public ConfidenceTypes ConfidenceType { get; set; }

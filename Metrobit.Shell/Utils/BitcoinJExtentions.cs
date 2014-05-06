@@ -1,5 +1,7 @@
 ﻿using System;
 using com.google.bitcoin.core;
+using com.google.bitcoin.jni;
+using java.math;
 using java.util;
 using Metrobit.Shell.Models.DAL;
 
@@ -43,6 +45,13 @@ namespace Metrobit.Shell.Utils
             var dateTime = epoch.AddMilliseconds(javaDateTicks);
 
             return dateTime;
+        }
+
+        public static System.Numerics.BigInteger ToDotNetBigInt(this BigInteger javaBigInt)
+        {
+            var byteArray = javaBigInt.toByteArray();
+
+            return new System.Numerics.BigInteger(byteArray);
         }
     }
 }

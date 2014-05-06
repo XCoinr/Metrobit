@@ -175,6 +175,7 @@
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="Models\MetrobitWalletAppKit.cs" />
     <Compile Include="Models\MetrobitWalletListener.cs" />
+    <Compile Include="ViewModel\MbAddressViewModel.cs" />
     <Compile Include="ViewModel\ReceiveViewModel.cs" />
     <Compile Include="ViewModel\SendViewModel.cs" />
     <Compile Include="ViewModel\SettingsAppearanceViewModel.cs" />

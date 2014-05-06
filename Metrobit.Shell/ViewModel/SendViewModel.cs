@@ -1,6 +1,5 @@
-﻿using System.Globalization;
+﻿using System.ComponentModel;
 using System.Windows.Input;
-using com.google.bitcoin.core;
 using com.google.bitcoin.utils;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
@@ -9,7 +8,7 @@ using Metrobit.Shell.Models;
 
 namespace Metrobit.Shell.ViewModel
 {
-    public class SendViewModel : ViewModelBase
+    public class SendViewModel : ViewModelBase, IDataErrorInfo
     {
         private MetrobitWalletAppKit _appKit;
 
@@ -20,13 +19,13 @@ namespace Metrobit.Shell.ViewModel
 
         #region Amount
 
-        private BigInteger _amount = BigInteger.valueOf(0);
+        private string _amount = null;
 
         /// <summary>
         /// Gets or sets the Amount property. This observable property 
         /// indicates ....
         /// </summary>
-        public BigInteger Amount
+        public string Amount
         {
             get { return _amount; }
             set
@@ -43,13 +42,13 @@ namespace Metrobit.Shell.ViewModel
 
         #region RecipientAddress
 
-        private Address _recipientAddress = null;
+        private string _recipientAddress = null;
 
         /// <summary>
         /// Gets or sets the RecipientAddress property. This observable property 
         /// indicates ....
         /// </summary>
-        public Address RecipientAddress
+        public string RecipientAddress
         {
             get { return _recipientAddress; }
             set
@@ -86,5 +85,20 @@ namespace Metrobit.Shell.ViewModel
         }
 
         #endregion
+
+        public string this[string columnName]
+        {
+            get
+            {
+                string error;
+
+                if (columnName == "Amount")
+                {
+                    BigInteger.valueOf()
+                }
+            }
+        }
+
+        public string Error { get; private set; }
     }
 }

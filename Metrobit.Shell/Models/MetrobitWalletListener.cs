@@ -57,7 +57,7 @@ namespace Metrobit.Shell.Models
                 Description = "Coins sent",
                 ConfidenceType = tx.getConfidence().getConfidenceType().ToMbConfidenceTypes(),
                 Depth = tx.getConfidence().getDepthInBlocks(),
-                Hash = tx.getHash().toBigInteger().longValue(),
+                Hash = tx.getHash().toBigInteger().toString(),
                 Timestamp = tx.getUpdateTime().ToDateTime()
             };
 
@@ -130,7 +130,7 @@ namespace Metrobit.Shell.Models
 
             using (var ctx = new MbContext())
             {
-                var txHash = tx.getHash().toBigInteger().longValue();
+                var txHash = tx.getHash().toBigInteger().toString();
                 var transaction =
                     (from t in ctx.Transactions where t.Hash == txHash select t)
                         .FirstOrDefault();
@@ -140,7 +140,7 @@ namespace Metrobit.Shell.Models
                     var error = "Update received for unknown transaction";
                     _log.Error(error);
 
-                    StoreAndBroadcastNewTransaction(wallet, tx);
+                    StoreAndBroadcastNewTransaction(wallet, tx, ctx);
 
                     transaction =
                     (from t in ctx.Transactions where t.Hash == txHash select t)

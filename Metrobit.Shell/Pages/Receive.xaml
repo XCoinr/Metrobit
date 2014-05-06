@@ -20,7 +20,13 @@
         <ItemsControl ItemsSource="{Binding Addresses}" Margin="8">
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <TextBlock Text="{Binding Address}"/>
+                    <TextBlock Text="{Binding Model.Address}">
+                        <TextBlock.ContextMenu>
+                            <ContextMenu>
+                                <MenuItem Header="Copy" Command="{Binding CopyAddressCommand}"/>
+                            </ContextMenu>
+                        </TextBlock.ContextMenu>
+                    </TextBlock>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>

@@ -1,7 +1,10 @@
 ﻿using System.Collections.ObjectModel;
 using com.google.bitcoin.core;
 using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Messaging;
+using Metrobit.Shell.Messages;
 using Metrobit.Shell.Models;
+using Metrobit.Shell.Models.DAL;
 
 namespace Metrobit.Shell.ViewModel
 {
@@ -12,16 +15,19 @@ namespace Metrobit.Shell.ViewModel
         public TransactionsViewModel(MetrobitWalletAppKit appKit)
         {
             _appKit = appKit;
-            Transactions = new ObservableCollection<Transaction>();
+            Transactions = new ObservableCollection<MbTransaction>();
 
-            var txs = _appKit.wallet().getTransactions(false).toArray();
-
-            for (int i = 0; i < txs.GetLength(0); i++)
+            using (var ctx = new MbContext())
             {
-                Transactions.Add(txs.GetValue(i) as Transaction);
+                foreach (var mbTransaction in ctx.Transactions)
+                {
+                    Transactions.Add(mbTransaction);
+                }
             }
+
+            Messenger.Default.Register<NewTransactionMessage>(this, message => Transactions.Add(message.Transaction));
         }
 
-        public ObservableCollection<Transaction> Transactions { get; private set; }
+        public ObservableCollection<MbTransaction> Transactions { get; private set; }
     }
 }

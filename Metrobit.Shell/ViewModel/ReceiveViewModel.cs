@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Windows.Input;
 using com.google.bitcoin.core;
+using com.sun.istack.@internal.logging;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
@@ -15,12 +16,13 @@ namespace Metrobit.Shell.ViewModel
 {
     public class ReceiveViewModel : ViewModelBase
     {
+        private static readonly log4net.ILog _log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         private MetrobitWalletAppKit _appKit;
         
         public ReceiveViewModel(MetrobitWalletAppKit appKit)
         {
             _appKit = appKit;
-            Addresses = new ObservableCollection<MbAddress>();
+            Addresses = new ObservableCollection<MbAddressViewModel>();
 
             ReloadAddresses();
 
@@ -33,13 +35,13 @@ namespace Metrobit.Shell.ViewModel
                     for (var i = 0; i < message.Keys.size(); i++)
                     {
                         var key = message.Keys.get(i) as ECKey;
-
+                        var address = new Address(parameters, key.getPubKeyHash()).toString();
                         var mbAddress =
                             (from a in ctx.Addresses
-                                where a.Address == new Address(parameters, key.getPubKeyHash()).toString()
+                                where a.Address == address
                                 select a).First();
 
-                        Addresses.Add(mbAddress);
+                        Addresses.Add(new MbAddressViewModel(mbAddress));
                     }
                 }
             }));
@@ -47,18 +49,22 @@ namespace Metrobit.Shell.ViewModel
 
         private void ReloadAddresses()
         {
+            _log.Info("Reloading addresses");
+
             Addresses.Clear();
 
             using (var ctx = new MbContext())
             {
                 foreach (var mbAddress in ctx.Addresses)
                 {
-                    Addresses.Add(mbAddress);
+                    Addresses.Add(new MbAddressViewModel(mbAddress));
                 }
             }
+
+            _log.InfoFormat("Found {0} addresses", Addresses.Count);
         }
 
-        public ObservableCollection<MbAddress> Addresses{ get; private set; }
+        public ObservableCollection<MbAddressViewModel> Addresses{ get; private set; }
 
         #region NewKeyCommand
 
