@@ -2,6 +2,7 @@
 using com.google.bitcoin.core;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Messaging;
+using java.util;
 using Metrobit.Shell.Messages;
 using Metrobit.Shell.Models;
 using Metrobit.Shell.Models.DAL;
@@ -17,12 +18,13 @@ namespace Metrobit.Shell.ViewModel
             _appKit = appKit;
             Transactions = new ObservableCollection<MbTransaction>();
 
-            using (var ctx = new MbContext())
+            var transactions = _appKit.wallet().getTransactions(false);
+
+            foreach (var t in transactions.toArray())
             {
-                foreach (var mbTransaction in ctx.Transactions)
-                {
-                    Transactions.Add(mbTransaction);
-                }
+                var tx = t as Transaction;
+
+
             }
 
             Messenger.Default.Register<NewTransactionMessage>(this, message => Transactions.Add(message.Transaction));
