@@ -1,10 +1,12 @@
 ﻿using System.ComponentModel;
 using System.Windows.Input;
+using com.google.bitcoin.core;
 using com.google.bitcoin.utils;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using java.math;
 using Metrobit.Shell.Models;
+using Microsoft.Practices.ServiceLocation;
 
 namespace Metrobit.Shell.ViewModel
 {
@@ -74,14 +76,15 @@ namespace Metrobit.Shell.ViewModel
 
         private void Send()
         {
-            var sendResult = _appKit.wallet().sendCoins(_appKit.peerGroup(), _recipientAddress, _amount);
+            var networkParams = _appKit.wallet().getParams();
+            var sendResult = _appKit.wallet().sendCoins(_appKit.peerGroup(), new Address(networkParams, _recipientAddress), new BigInteger(_amount));
             
             sendResult.broadcastComplete.addListener(new BroadcastCompleteListener(sendResult), new Threading.UserThread());
         }
 
         private bool CanSend()
         {
-            return _amount.intValue() > 0 && _recipientAddress != null;
+            return true;
         }
 
         #endregion
@@ -90,12 +93,7 @@ namespace Metrobit.Shell.ViewModel
         {
             get
             {
-                string error;
-
-                if (columnName == "Amount")
-                {
-                    BigInteger.valueOf()
-                }
+                return null;
             }
         }
 

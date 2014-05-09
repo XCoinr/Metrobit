@@ -46,12 +46,5 @@ namespace Metrobit.Shell.Utils
 
             return dateTime;
         }
-
-        public static System.Numerics.BigInteger ToDotNetBigInt(this BigInteger javaBigInt)
-        {
-            var byteArray = javaBigInt.toByteArray();
-
-            return new System.Numerics.BigInteger(byteArray);
-        }
     }
 }

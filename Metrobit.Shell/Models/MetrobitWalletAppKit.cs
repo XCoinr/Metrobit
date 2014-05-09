@@ -1,8 +1,9 @@
 using System;
 using System.IO;
+using System.Linq;
 using com.google.bitcoin.core;
 using com.google.bitcoin.kits;
-using java.util.concurrent;
+using Metrobit.Shell.Models.DAL;
 
 namespace Metrobit.Shell.Models
 {
@@ -43,6 +44,18 @@ namespace Metrobit.Shell.Models
             IsSetupComplete = true;
             _log.Info("Wallet setup complete");
             OnWalletSetupComplete();
+        }
+
+        public string GetAddressDescription(string address)
+        {
+            string desc = null;
+
+            using (var ctx = new MbContext())
+            {
+                desc = (from a in ctx.Addresses where a.Address == address select a.Description).First();
+            }
+
+            return desc;
         }
     }
 }

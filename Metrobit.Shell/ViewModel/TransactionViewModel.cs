@@ -42,74 +42,97 @@ namespace Metrobit.Shell.ViewModel
                     TransactionOutput myOutput = null;
                     TransactionOutput theirOutput = null;
 
-                    if (transactionOutputs != null) 
+                    if (transactionOutputs != null)
                     {
                         for (int i = 0; i < transactionOutputs.size(); i++)
                         {
                             var transactionOutput = transactionOutputs.get(i) as TransactionOutput;
-                            
-                            if (transactionOutput != null && transactionOutput.isMine(perWalletModelData.getWallet())) {
-                    myOutput = transactionOutput;
-                }
-                if (transactionOutput != null && !transactionOutput.isMine(perWalletModelData.getWallet())) {
-                    theirOutput = transactionOutput;
-                }
+
+                            if (transactionOutput != null && transactionOutput.isMine(_appKit.wallet()))
+                            {
+                                myOutput = transactionOutput;
+                            }
+
+                            if (transactionOutput != null && !transactionOutput.isMine(_appKit.wallet()))
+                            {
+                                theirOutput = transactionOutput;
+                            }
                         }
-                
-            }
-        }
-
-        if (credit != null && credit.compareTo(BigInteger.ZERO) > 0) {
-            // Credit.
-            try {
-                String addressString = "";
-
-                if (myOutput != null) {
-                    Address toAddress = new Address(getNetworkParameters(), myOutput
-                            .getScriptPubKey().getPubKeyHash());
-                    addressString = toAddress.toString();
-                }
-
-                String label = null;
-                if (perWalletModelData.getWalletInfo() != null) {
-                    label = perWalletModelData.getWalletInfo().lookupLabelForReceivingAddress(addressString);
-                }
-                if (label != null && !label.equals("")) {
-                    toReturn = controller.getLocaliser().getString("multiBitModel.creditDescriptionWithLabel",
-                            new Object[]{addressString, label});
-                } else {
-                    toReturn = controller.getLocaliser().getString("multiBitModel.creditDescription",
-                            new Object[]{addressString});
-                }
-            } catch (ScriptException e) {
-                log.error(e.getMessage(), e);
-
-            }
-        }
-
-        if (debit != null && debit.compareTo(BigInteger.ZERO) > 0) {
-            // Debit.
-            try {
-                // See if the address is a known sending address.
-                if (theirOutput != null) {
-                    String addressString = theirOutput.getScriptPubKey().getToAddress(getNetworkParameters()).toString();
-                    String label = null;
-                    if (perWalletModelData.getWalletInfo() != null) {
-                        label = perWalletModelData.getWalletInfo().lookupLabelForSendingAddress(addressString);
                     }
-                    if (label != null && !label.equals("")) {
-                        toReturn = controller.getLocaliser().getString("multiBitModel.debitDescriptionWithLabel",
-                                new Object[]{addressString, label});
-                    } else {
-                        toReturn = controller.getLocaliser().getString("multiBitModel.debitDescription",
-                                new Object[]{addressString});
+
+                    string toReturn = "";
+
+                    if (Credit != null && Credit.compareTo(BigInteger.ZERO) > 0)
+                    {
+                        // Credit.
+                        try
+                        {
+                            String addressString = "";
+
+                            if (myOutput != null)
+                            {
+                                var toAddress = new Address(_appKit.@params(),
+                                    myOutput.getScriptPubKey().getPubKeyHash());
+
+                                addressString = toAddress.toString();
+                            }
+
+                            String label = null;
+
+                            label = _appKit.GetAddressDescription(addressString);
+
+                            if (label != null && !label.equals(""))
+                            {
+                                toReturn = 
+                                    controller.getLocaliser()
+                                        .getString("multiBitModel.creditDescriptionWithLabel",
+                                            new Object[] {addressString, label});
+                            }
+                            else
+                            {
+                                toReturn = controller.getLocaliser()
+                                    .getString("multiBitModel.creditDescription", new Object[] {addressString});
+                            }
+                        }
+                        catch (ScriptException e)
+                        {
+                            log.error(e.getMessage(), e);
+                        }
                     }
-                }
-            } catch (ScriptException e) {
-                log.error(e.getMessage(), e);
-            }
-        }
-        return toReturn;
+
+                    if (debit != null && debit.compareTo(BigInteger.ZERO) > 0) 
+                    {
+                        // Debit.
+                        try 
+                        {
+                            // See if the address is a known sending address.
+                            if (theirOutput != null) 
+                            {
+                                String addressString = theirOutput.getScriptPubKey().getToAddress(getNetworkParameters()).toString();
+                                String label = null;
+                    
+                                if (perWalletModelData.getWalletInfo() != null) 
+                                {
+                                    label = perWalletModelData.getWalletInfo().lookupLabelForSendingAddress(addressString);
+                                }
+                                
+                                if (label != null && !label.equals("")) 
+                                {
+                                    toReturn = controller.getLocaliser().getString("multiBitModel.debitDescriptionWithLabel",new Object[]{addressString, label});
+                                } 
+                                else 
+                                {
+                                    toReturn = controller.getLocaliser().getString("multiBitModel.debitDescription",new Object[]{addressString});
+                                }
+                            }
+                        } 
+                        catch (ScriptException e) 
+                        {
+                            log.error(e.getMessage(), e);
+                        }
+                    }
+                    
+                    Description = toReturn;    
                 }
             }
         }
