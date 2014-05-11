@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using System.Linq;
 using com.google.bitcoin.core;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Messaging;
@@ -16,20 +17,18 @@ namespace Metrobit.Shell.ViewModel
         public TransactionsViewModel(MetrobitWalletAppKit appKit)
         {
             _appKit = appKit;
-            Transactions = new ObservableCollection<MbTransaction>();
+            Transactions = new ObservableCollection<TransactionViewModel>();
 
             var transactions = _appKit.wallet().getTransactions(false);
 
-            foreach (var t in transactions.toArray())
+            foreach (var tx in transactions.toArray().Select(t => t as Transaction))
             {
-                var tx = t as Transaction;
-
-
+                Transactions.Add(new TransactionViewModel(tx, appKit));
             }
 
-            Messenger.Default.Register<NewTransactionMessage>(this, message => Transactions.Add(message.Transaction));
+            Messenger.Default.Register<NewTransactionMessage>(this, message => Transactions.Add(new TransactionViewModel(message.Transaction, appKit)));
         }
 
-        public ObservableCollection<MbTransaction> Transactions { get; private set; }
+        public ObservableCollection<TransactionViewModel> Transactions { get; private set; }
     }
 }

@@ -52,22 +52,22 @@ namespace Metrobit.Shell.Models
 
         private static void StoreAndBroadcastNewTransaction(Wallet wallet, Transaction tx, MbContext ctx)
         {
-            var newTx = new MbTransaction
-            {
-                Description = "Coins sent",
-                ConfidenceType = tx.getConfidence().getConfidenceType().ToMbConfidenceTypes(),
-                Depth = tx.getConfidence().getDepthInBlocks(),
-                Hash = tx.getHash().toBigInteger().toString(),
-                Timestamp = tx.getUpdateTime().ToDateTime()
-            };
+            //var newTx = new MbTransaction
+            //{
+            //    Description = "Coins sent",
+            //    ConfidenceType = tx.getConfidence().getConfidenceType().ToMbConfidenceTypes(),
+            //    Depth = tx.getConfidence().getDepthInBlocks(),
+            //    Hash = tx.getHash().toBigInteger().toString(),
+            //    Timestamp = tx.getUpdateTime().ToDateTime()
+            //};
 
-            ctx.Transactions.Add(newTx);
-            ctx.SaveChanges();
+            //ctx.Transactions.Add(newTx);
+            //ctx.SaveChanges();
 
             var msg = new NewTransactionMessage
             {
                 Wallet = wallet,
-                Transaction = newTx
+                Transaction = tx
             };
 
             Messenger.Default.Send(msg);
@@ -130,29 +130,29 @@ namespace Metrobit.Shell.Models
 
             using (var ctx = new MbContext())
             {
-                var txHash = tx.getHash().toBigInteger().toString();
-                var transaction =
-                    (from t in ctx.Transactions where t.Hash == txHash select t)
-                        .FirstOrDefault();
+                //var txHash = tx.getHash().toBigInteger().toString();
+                //var transaction =
+                //    (from t in ctx.Transactions where t.Hash == txHash select t)
+                //        .FirstOrDefault();
 
-                if (transaction == null)
-                {
-                    var error = "Update received for unknown transaction";
-                    _log.Error(error);
+                //if (transaction == null)
+                //{
+                //    var error = "Update received for unknown transaction";
+                //    _log.Error(error);
 
-                    StoreAndBroadcastNewTransaction(wallet, tx, ctx);
+                //    StoreAndBroadcastNewTransaction(wallet, tx, ctx);
 
-                    transaction =
-                    (from t in ctx.Transactions where t.Hash == txHash select t)
-                        .FirstOrDefault();
-                }
+                //    transaction =
+                //    (from t in ctx.Transactions where t.Hash == txHash select t)
+                //        .FirstOrDefault();
+                //}
 
-                transaction.Depth = tx.getConfidence().getDepthInBlocks();
-                transaction.ConfidenceType = tx.getConfidence().getConfidenceType().ToMbConfidenceTypes();
+                //transaction.Depth = tx.getConfidence().getDepthInBlocks();
+                //transaction.ConfidenceType = tx.getConfidence().getConfidenceType().ToMbConfidenceTypes();
 
-                ctx.SaveChanges();
+                //ctx.SaveChanges();
 
-                var msg = new TransactionConfidenceChangedMessage { Wallet = wallet, Transaction = transaction };
+                var msg = new TransactionConfidenceChangedMessage { Wallet = wallet, Transaction = tx };
                 Messenger.Default.Send(msg);
             }
         }

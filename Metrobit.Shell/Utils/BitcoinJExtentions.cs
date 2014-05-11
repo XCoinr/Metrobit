@@ -12,28 +12,28 @@ namespace Metrobit.Shell.Utils
     /// </summary>
     public static class BitcoinJExtentions
     {
-        public static MbTransaction.ConfidenceTypes ToMbConfidenceTypes(
-            this TransactionConfidence.ConfidenceType b4JConfidenceType)
-        {
-            if (b4JConfidenceType == TransactionConfidence.ConfidenceType.BUILDING)
-            {
-                return MbTransaction.ConfidenceTypes.Building;
-            }
-            if (b4JConfidenceType == TransactionConfidence.ConfidenceType.DEAD)
-            {
-                return MbTransaction.ConfidenceTypes.Dead;
-            }
-            if (b4JConfidenceType == TransactionConfidence.ConfidenceType.PENDING)
-            {
-                return MbTransaction.ConfidenceTypes.Pending;
-            }
-            if (b4JConfidenceType == TransactionConfidence.ConfidenceType.UNKNOWN)
-            {
-                return MbTransaction.ConfidenceTypes.Pending;
-            }
+        //public static MbTransaction.ConfidenceTypes ToMbConfidenceTypes(
+        //    this TransactionConfidence.ConfidenceType b4JConfidenceType)
+        //{
+        //    if (b4JConfidenceType == TransactionConfidence.ConfidenceType.BUILDING)
+        //    {
+        //        return MbTransaction.ConfidenceTypes.Building;
+        //    }
+        //    if (b4JConfidenceType == TransactionConfidence.ConfidenceType.DEAD)
+        //    {
+        //        return MbTransaction.ConfidenceTypes.Dead;
+        //    }
+        //    if (b4JConfidenceType == TransactionConfidence.ConfidenceType.PENDING)
+        //    {
+        //        return MbTransaction.ConfidenceTypes.Pending;
+        //    }
+        //    if (b4JConfidenceType == TransactionConfidence.ConfidenceType.UNKNOWN)
+        //    {
+        //        return MbTransaction.ConfidenceTypes.Pending;
+        //    }
 
-            throw new ArgumentException("Unexpexted confidence type");
-        }
+        //    throw new ArgumentException("Unexpexted confidence type");
+        //}
 
         public static DateTime ToDateTime(this Date date)
         {

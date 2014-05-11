@@ -7,6 +7,6 @@ namespace Metrobit.Shell.Messages
     public class NewTransactionMessage : MessageBase
     {
         public Wallet Wallet { get; set; }
-        public MbTransaction Transaction { get; set; }
+        public Transaction Transaction { get; set; }
     }
 }
