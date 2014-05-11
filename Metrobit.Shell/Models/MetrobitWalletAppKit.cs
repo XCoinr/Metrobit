@@ -46,16 +46,21 @@ namespace Metrobit.Shell.Models
             OnWalletSetupComplete();
         }
 
-        public string GetAddressDescription(string address)
+        public string GetReceivingAddressLabel(string address)
         {
             string desc = null;
 
             using (var ctx = new MbContext())
             {
-                desc = (from a in ctx.Addresses where a.Address == address select a.Description).First();
+                desc = (from a in ctx.Addresses where a.Address == address select a.Description).FirstOrDefault();
             }
 
             return desc;
+        }
+
+        public string GetSendingAddressLabel(string address)
+        {
+            return string.Empty;
         }
     }
 }

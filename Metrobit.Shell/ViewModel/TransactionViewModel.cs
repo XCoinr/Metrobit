@@ -79,28 +79,24 @@ namespace Metrobit.Shell.ViewModel
 
                             String label = null;
 
-                            label = _appKit.GetAddressDescription(addressString);
+                            label = _appKit.GetReceivingAddressLabel(addressString);
 
-                            if (label != null && !label.equals(""))
+                            if (label != null && !string.IsNullOrWhiteSpace(label))
                             {
-                                toReturn = 
-                                    controller.getLocaliser()
-                                        .getString("multiBitModel.creditDescriptionWithLabel",
-                                            new Object[] {addressString, label});
+                                toReturn = "Credit to '" + label + "'";
                             }
                             else
                             {
-                                toReturn = controller.getLocaliser()
-                                    .getString("multiBitModel.creditDescription", new Object[] {addressString});
+                                toReturn = "Credit to '" + addressString + "'";
                             }
                         }
                         catch (ScriptException e)
                         {
-                            log.error(e.getMessage(), e);
+                            _log.Error(e.getMessage(), e);
                         }
                     }
 
-                    if (debit != null && debit.compareTo(BigInteger.ZERO) > 0) 
+                    if (Debit != null && Debit.compareTo(BigInteger.ZERO) > 0) 
                     {
                         // Debit.
                         try 
@@ -108,27 +104,25 @@ namespace Metrobit.Shell.ViewModel
                             // See if the address is a known sending address.
                             if (theirOutput != null) 
                             {
-                                String addressString = theirOutput.getScriptPubKey().getToAddress(getNetworkParameters()).toString();
+                                String addressString = theirOutput.getScriptPubKey().getToAddress(_appKit.@params()).toString();
                                 String label = null;
                     
-                                if (perWalletModelData.getWalletInfo() != null) 
-                                {
-                                    label = perWalletModelData.getWalletInfo().lookupLabelForSendingAddress(addressString);
-                                }
+                                label = _appKit.GetSendingAddressLabel(addressString);
                                 
-                                if (label != null && !label.equals("")) 
+                                
+                                if (label != null && !string.IsNullOrWhiteSpace(label)) 
                                 {
-                                    toReturn = controller.getLocaliser().getString("multiBitModel.debitDescriptionWithLabel",new Object[]{addressString, label});
+                                    toReturn = "Sent to '" + label + "'";
                                 } 
                                 else 
                                 {
-                                    toReturn = controller.getLocaliser().getString("multiBitModel.debitDescription",new Object[]{addressString});
+                                    toReturn = "Sent to '" + addressString + "'";
                                 }
                             }
                         } 
                         catch (ScriptException e) 
                         {
-                            log.error(e.getMessage(), e);
+                            _log.Error(e.getMessage(), e);
                         }
                     }
                     
