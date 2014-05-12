@@ -2,7 +2,6 @@
 using System.Linq;
 using System.Windows.Input;
 using com.google.bitcoin.core;
-using com.sun.istack.@internal.logging;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
@@ -28,21 +27,10 @@ namespace Metrobit.Shell.ViewModel
 
             Messenger.Default.Register<KeysAddedMessage>(this, message => DispatcherHelper.CheckBeginInvokeOnUI(() =>
             {
-                using (var ctx = new MbContext())
+                for (var i = 0; i < message.Keys.size(); i++)
                 {
-                    var parameters = ServiceLocator.Current.GetInstance<MetrobitWalletAppKit>().@params();
-
-                    for (var i = 0; i < message.Keys.size(); i++)
-                    {
-                        var key = message.Keys.get(i) as ECKey;
-                        var address = new Address(parameters, key.getPubKeyHash()).toString();
-                        var mbAddress =
-                            (from a in ctx.Addresses
-                                where a.Address == address
-                                select a).First();
-
-                        Addresses.Add(new MbAddressViewModel(mbAddress));
-                    }
+                    var key = message.Keys.get(i) as ECKey;
+                    Addresses.Add(new MbAddressViewModel(key, appKit));
                 }
             }));
         }
@@ -53,12 +41,12 @@ namespace Metrobit.Shell.ViewModel
 
             Addresses.Clear();
 
-            using (var ctx = new MbContext())
+            var keys = _appKit.wallet().getKeys();
+
+            for (int i = 0; i < keys.size(); i++)
             {
-                foreach (var mbAddress in ctx.Addresses)
-                {
-                    Addresses.Add(new MbAddressViewModel(mbAddress));
-                }
+                var key = keys.get(i) as ECKey;
+                Addresses.Add(new MbAddressViewModel(key, _appKit));
             }
 
             _log.InfoFormat("Found {0} addresses", Addresses.Count);
