@@ -1,6 +1,9 @@
 ﻿using System.Linq;
+using System.Windows;
+using System.Windows.Input;
 using com.google.bitcoin.core;
 using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Command;
 using Metrobit.Shell.Models;
 using Metrobit.Shell.Models.DAL;
 using Microsoft.Practices.ServiceLocation;
@@ -55,5 +58,21 @@ namespace Metrobit.Shell.ViewModel
                 }
             }
         }
+
+        #region CopyAddressCommand
+
+        private ICommand _copyAddressCommand;
+
+        public ICommand CopyAddressCommand
+        {
+            get { return _copyAddressCommand ?? (_copyAddressCommand = new RelayCommand(CopyAddress)); }
+        }
+
+        private void CopyAddress()
+        {
+            Clipboard.SetText(Address);
+        }
+
+        #endregion
     }
 }
