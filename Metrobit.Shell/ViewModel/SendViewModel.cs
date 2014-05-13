@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.Windows.Input;
 using com.google.bitcoin.core;
 using com.google.bitcoin.utils;
@@ -6,7 +7,6 @@ using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using java.math;
 using Metrobit.Shell.Models;
-using Microsoft.Practices.ServiceLocation;
 
 namespace Metrobit.Shell.ViewModel
 {
@@ -21,7 +21,7 @@ namespace Metrobit.Shell.ViewModel
 
         #region Amount
 
-        private string _amount = null;
+        private string _amount = "0";
 
         /// <summary>
         /// Gets or sets the Amount property. This observable property 
@@ -93,7 +93,47 @@ namespace Metrobit.Shell.ViewModel
         {
             get
             {
-                return null;
+                if (columnName == "RecipientAddress")
+                {
+                    try
+                    {
+                        var networkParams = _appKit.wallet().getParams();
+                        var address = new Address(networkParams, _recipientAddress);
+                    }
+                    catch (Exception)
+                    {
+                        Error = "Recipient address is invalid";
+                        return Error;
+                    }
+                }
+
+                if (columnName == "Amount")
+                {
+                    try
+                    {
+                        var networkParams = _appKit.wallet().getParams();
+                        var amount = new BigInteger(_amount);
+
+                        if (amount.longValue() < 0)
+                        {
+                            Error = "Amount must be positive";
+                            return Error;
+                        }
+                        if (amount.longValue() > _appKit.wallet().getBalance(Wallet.BalanceType.ESTIMATED).longValue())
+                        {
+                            Error = "Insufficient funds";
+                            return Error;
+                        }
+                    }
+                    catch (Exception)
+                    {
+                        Error = "Amount is invalid";
+                        return Error;
+                    }
+                }
+
+                Error = null;
+                return Error;
             }
         }
 

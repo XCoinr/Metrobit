@@ -20,8 +20,8 @@
         <TextBlock Text="Recipient Address" Margin="8"/>
         <TextBlock Text="Amount" Margin="8" Grid.Row="1"/>
         
-        <TextBox Text="{Binding RecipientAddress, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Margin="8" Grid.Column="1" Width="200"/>
-        <TextBox Text="{Binding Amount, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Margin="8" Grid.Column="1" Grid.Row="1" Width="200"/>
+        <TextBox Text="{Binding RecipientAddress}" Margin="8" Grid.Column="1" Width="200"/>
+        <TextBox Text="{Binding Amount}" Margin="8" Grid.Column="1" Grid.Row="1" Width="200"/>
         
         <Button Grid.Row="3" Grid.Column="1" HorizontalAlignment="Right" Command="{Binding SendCommand}" Content="Send" Margin="8"/>
     </Grid>
