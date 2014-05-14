@@ -3,6 +3,9 @@ using System.Net.Mime;
 using System.Windows;
 using com.google.bitcoin.core;
 using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Messaging;
+using GalaSoft.MvvmLight.Threading;
+using Metrobit.Shell.Messages;
 using Metrobit.Shell.Models;
 
 namespace Metrobit.Shell.ViewModel
@@ -16,25 +19,25 @@ namespace Metrobit.Shell.ViewModel
 
             _appKit.WalletSetupComplete += InitialiseBalance;
             InitialiseBalance();
+
+            Messenger.Default.Register<NewTransactionMessage>(this, message => InitialiseBalance());
         }
 
         #region Balance
 
         private void InitialiseBalance()
         {
-            if (!Application.Current.Dispatcher.CheckAccess())
+            DispatcherHelper.CheckBeginInvokeOnUI(() =>
             {
-                Application.Current.Dispatcher.Invoke(InitialiseBalance);
-            }
+                if (!_appKit.IsSetupComplete)
+                {
+                    return;
+                }
 
-            if (!_appKit.IsSetupComplete)
-            {
-                return;
-            }
+                var bal = _appKit.wallet().getBalance(Wallet.BalanceType.ESTIMATED);
 
-            var bal = _appKit.wallet().getBalance(Wallet.BalanceType.ESTIMATED);
-
-            Balance = com.google.bitcoin.core.Utils.bitcoinValueToFriendlyString(bal);
+                Balance = com.google.bitcoin.core.Utils.bitcoinValueToFriendlyString(bal);
+            });
         }
 
         private string _balance = null;

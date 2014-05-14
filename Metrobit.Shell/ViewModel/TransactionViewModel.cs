@@ -2,8 +2,11 @@
 using System.Collections.Generic;
 using com.google.bitcoin.core;
 using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Messaging;
+using GalaSoft.MvvmLight.Threading;
 using java.math;
 using java.util;
+using Metrobit.Shell.Messages;
 using Metrobit.Shell.Models;
 using Metrobit.Shell.Utils;
 
@@ -96,39 +99,48 @@ namespace Metrobit.Shell.ViewModel
                         }
                     }
 
-                    if (Debit != null && Debit.compareTo(BigInteger.ZERO) > 0) 
+                    if (Debit != null && Debit.compareTo(BigInteger.ZERO) > 0)
                     {
                         // Debit.
-                        try 
+                        try
                         {
                             // See if the address is a known sending address.
-                            if (theirOutput != null) 
+                            if (theirOutput != null)
                             {
-                                String addressString = theirOutput.getScriptPubKey().getToAddress(_appKit.@params()).toString();
+                                String addressString =
+                                    theirOutput.getScriptPubKey().getToAddress(_appKit.@params()).toString();
                                 String label = null;
-                    
+
                                 label = _appKit.GetSendingAddressLabel(addressString);
-                                
-                                
-                                if (label != null && !string.IsNullOrWhiteSpace(label)) 
+
+
+                                if (label != null && !string.IsNullOrWhiteSpace(label))
                                 {
                                     toReturn = "Sent to '" + label + "'";
-                                } 
-                                else 
+                                }
+                                else
                                 {
                                     toReturn = "Sent to '" + addressString + "'";
                                 }
                             }
-                        } 
-                        catch (ScriptException e) 
+                        }
+                        catch (ScriptException e)
                         {
                             _log.Error(e.getMessage(), e);
                         }
                     }
-                    
-                    Description = toReturn;    
+
+                    Description = toReturn;
                 }
             }
+
+            Messenger.Default.Register<TransactionConfidenceChangedMessage>(this, message =>
+            {
+                if (message.Transaction.getHash().@equals(_transaction.getHash()))
+                {
+                    DispatcherHelper.CheckBeginInvokeOnUI(()=> RaisePropertyChanged(string.Empty));
+                }
+            });
         }
 
         public TransactionConfidence.ConfidenceType ConfidenceType
